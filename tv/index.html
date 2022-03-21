@@ -1,98 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <title>Texturapantalla</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
-    <meta itemprop="name" content="Texturapantalla">
-    <meta itemprop="description" content="made with cables">
-    <meta itemprop="image" content="screenshot.png">
-    <meta name="description" content="made with cables" />
-
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="title"
+      content="BikolabsTV, la televisón experimental con cables.gl"
+    />
+    <meta
+      name="description"
+      content="Revisa todos los canales de bikolabs en la televisión de cable.gl"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@biko2" />
+    <meta
+      name="twitter:title"
+      content="BikolabsTV, la televisón experimental con cables.gl"
+    />
+    <meta
+      name="twitter:description"
+      content="Revisa todos los canales de bikolabs en la televisión de cable.gl"
+    />
+    <meta name="twitter:creator" content="@biko2" />
+    <meta
+      name="twitter:image:src"
+      content="https://guiabe.bikolabs.io/tv/assets/guiabe-tv.jpg"
+    />
+    <meta property="og:title" content="Guía sobre Diseño del Comportamiento" />
+    <meta
+      property="og:description"
+      content="Revisa todos los canales de bikolabs en la televisión de cable.gl"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://guiabe.bikolabs.io" />
+    <meta
+      property="og:site_name"
+      content="BikolabsTV, la televisón experimental con cables.gl"
+    />
+    <meta
+      property="og:image"
+      content="https://guiabe.bikolabs.io/tv/assets/guiabe-tv.jpg"
+    />
+    <meta property="og:locale" content="ES_es" />
+    <title>BikolabsTV, la televisón experimental con cables.gl</title>
     <style>
-        body {
-            margin: 0;
-            background-color: #000;
-            color: #fff;
-            font-family: Helvetica, Arial, sans-serif;
-            overflow: hidden; /* disable scrolling / rubberband effect on mobile */
-        }
+      body {
+        margin: 0;
+        background-color: #000;
+        color: #fff;
+        font-family: Helvetica, Arial, sans-serif;
+        overflow: hidden; /* disable scrolling / rubberband effect on mobile */
+      }
 
-        canvas {
-            display: block;
-            position: absolute;
-            outline:0;
-        }
+      canvas {
+        display: block;
+        position: absolute;
+        outline: 0;
+      }
 
-        * {
-            /* disable on touch highlights of html elements, especially on mobile! */
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
+      * {
+        /* disable on touch highlights of html elements, especially on mobile! */
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
 
-        footer {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            box-sizing: border-box;
-            width: 100vw;
-            padding: 20px;
-            text-align: right;
-            font-size: 18px;
-            color: var(--highlight-color);
-        }
+      footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        box-sizing: border-box;
+        width: 100vw;
+        padding: 20px;
+        text-align: right;
+        font-size: 18px;
+        color: var(--highlight-color);
+      }
 
-        footer a,
-        footer a:hover,
-        footer a:active {
-            color: var(--highlight-color);
-        }
+      footer a,
+      footer a:hover,
+      footer a:active {
+        color: var(--highlight-color);
+      }
     </style>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <canvas id="glcanvas" width="100vw" height="100vh" tabindex="1"></canvas>
     <footer>
-        made with <a href='https://cables.gl'>cables</a>
-        <!-- we would greatly appreciate if you link cables somewhere on your site! and tell us your website! thanks <3 :) -->
+      made with <a href="https://cables.gl">cables</a>
+      <!-- we would greatly appreciate if you link cables somewhere on your site! and tell us your website! thanks <3 :) -->
     </footer>
 
-    <libs/>
+    <libs />
     <script type="text/javascript" src="js/patch.js" async></script>
-    <corelibs/>
+    <corelibs />
 
     <script>
+      // disable rubberband effect on mobile devices
+      document.getElementById("glcanvas").addEventListener(
+        "touchmove",
+        (e) => {
+          e.preventDefault();
+        },
+        false
+      );
 
-        // disable rubberband effect on mobile devices
-        document.getElementById('glcanvas').addEventListener('touchmove', (e)=>{ e.preventDefault(); }, false);
+      function patchInitialized(patch) {
+        // You can now access the patch object (patch), register variable watchers and so on
+      }
 
+      function patchFinishedLoading(patch) {
+        // The patch is ready now, all assets have been loaded
+      }
 
-        function patchInitialized(patch) {
-            // You can now access the patch object (patch), register variable watchers and so on
-        }
-
-        function patchFinishedLoading(patch) {
-            // The patch is ready now, all assets have been loaded
-        }
-
-        document.addEventListener('CABLES.jsLoaded', function (event) {
-            CABLES.patch = new CABLES.Patch({
-                patch: CABLES.exportedPatch,
-                "prefixAssetPath": "",
-                "glCanvasId": "glcanvas",
-                "glCanvasResizeToWindow": true,
-                "onPatchLoaded": patchInitialized,
-                "onFinishedLoading": patchFinishedLoading,
-                // "canvas":{"alpha":true,"premultipliedAlpha":true} // make canvas transparent
-            });
+      document.addEventListener("CABLES.jsLoaded", function (event) {
+        CABLES.patch = new CABLES.Patch({
+          patch: CABLES.exportedPatch,
+          prefixAssetPath: "",
+          glCanvasId: "glcanvas",
+          glCanvasResizeToWindow: true,
+          onPatchLoaded: patchInitialized,
+          onFinishedLoading: patchFinishedLoading,
+          // "canvas":{"alpha":true,"premultipliedAlpha":true} // make canvas transparent
         });
+      });
     </script>
-</body>
-
+  </body>
 </html>
